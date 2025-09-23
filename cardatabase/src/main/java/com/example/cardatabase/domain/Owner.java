@@ -1,11 +1,15 @@
 package com.example.cardatabase.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
 
-@Entity         // 테이블을 만들기 위한 것
+@Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
 @Getter
 @Setter
 @ToString
@@ -23,6 +27,7 @@ public class Owner {
     private final String lastName;
 
     // 소유자는 다수의 차들을 가질 수 있기 때문에 collections를 사용(list)
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private List<Car> cars;
 }
