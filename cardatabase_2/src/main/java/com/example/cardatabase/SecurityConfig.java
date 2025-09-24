@@ -27,4 +27,6 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+    // 20250924 14:40에 업로드 합니다.
+
 }
