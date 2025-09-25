@@ -37,6 +37,7 @@ public class JwtService {
                 // 여기 Header는 postman에서 볼 수 있는 headers에 해당합니다.
                 HttpHeaders.AUTHORIZATION
         );
+        /* 11.5.0
         if (token != null) {
             String user = Jwts.parserBuilder()
                     .setSigningKey(key)
@@ -44,7 +45,14 @@ public class JwtService {
                     .parseClaimsJws(token.replace(PREFIX, ""))
                     .getBody()
                     .getSubject();
-
+        */
+        if (token != null) {
+            String user = Jwts.parser()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token.replace(PREFIX, ""))
+                    .getBody()
+                    .getSubject();
             if (user != null) {
                 return user;
             }
