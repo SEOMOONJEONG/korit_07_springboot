@@ -23,6 +23,7 @@ public class CarController {
         return carService.getCars();
     }
 
+
     // 2. 차량 한 대 추가 (POST /api/cars)
     @PostMapping("/cars")
     public ResponseEntity<Car> addCar(@RequestBody Car car) {

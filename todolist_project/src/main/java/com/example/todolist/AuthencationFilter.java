@@ -1,6 +1,6 @@
-package com.example.cardatabase_4;
+package com.example.todolist;
 
-import com.example.cardatabase_4.service.JwtService;
+import com.example.todolist.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,50 +14,28 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.Collections;
+
 @Component
-// 스프링 빈으로 등록되어 애플리케이션 전역에서 사용 가능한 필터 컴포넌트임을 표시
-
 public class AuthencationFilter extends OncePerRequestFilter {
-    // OncePerRequestFilter를 상속받아 한 요청당 한 번만 실행되는 커스텀 필터 구현
-
     private final JwtService jwtService;
-    // JWT 토큰을 처리하기 위한 JwtService 의존성 선언
 
     public AuthencationFilter(JwtService jwtService) {
         this.jwtService = jwtService;
-        // 생성자를 통한 JwtService 주입 (DI)
     }
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-        // 실제 필터링 로직이 구현되는 메서드
-        // 매 요청마다 호출됨
-
         String jws = request.getHeader(HttpHeaders.AUTHORIZATION);
-        // HTTP 요청 헤더에서 Authorization 헤더 값을 읽어옴 (JWT 토큰 포함)
-
         if(jws != null) {
-            // Authorization 헤더가 존재하면
-
             String user = jwtService.getAuthUser(request);
-            // JwtService를 사용해 JWT에서 인증된 사용자명(주체)을 추출
-
             Authentication authentication = new UsernamePasswordAuthenticationToken(
                     user, null, Collections.emptyList());
-            // 인증 객체 생성
-            // principal = user (사용자명)
-            // credentials = null (비밀번호는 이미 검증됐으므로)
-            // authorities = 빈 리스트 (권한 정보가 없으면 빈 리스트)
-
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            // 현재 쓰레드의 SecurityContext에 인증 정보를 저장
-            // 이후 스프링 시큐리티가 인증된 사용자로 인식함
         }
-
         filterChain.doFilter(request, response);
-        // 다음 필터 체인으로 요청과 응답을 넘김
+
     }
 }
-

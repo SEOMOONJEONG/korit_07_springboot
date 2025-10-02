@@ -1,6 +1,6 @@
-package com.example.cardatabase_4;
+package com.example.todolist;
 
-import com.example.cardatabase_4.service.UserDetailsServiceImpl;
+import com.example.todolist.service.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

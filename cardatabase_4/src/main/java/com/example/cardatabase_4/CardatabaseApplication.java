@@ -21,12 +21,22 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.Arrays;
 
-
 @SpringBootApplication
+// 스프링 부트 애플리케이션임을 나타내는 애너테이션
+// @Configuration, @EnableAutoConfiguration, @ComponentScan 등을 포함해
+// 자동 설정과 컴포넌트 스캔을 활성화시킴
+
 public class CardatabaseApplication implements CommandLineRunner {
+	// 이 클래스는 스프링 부트 애플리케이션의 메인 클래스이자,
+	// CommandLineRunner 인터페이스를 구현해서 애플리케이션 시작 후
+	// run() 메서드를 실행하도록 함
+
 	private static final Logger logger = LoggerFactory.getLogger(
 			CardatabaseApplication.class
 	);
+	// 로깅을 위한 Logger 객체 생성
+	// LoggerFactory에서 이 클래스(CardatabaseApplication)의 이름을 가진 로거를 생성
+
 
 	private final CarRepository repository;
 	private final OwnerRepository ownerRepository;
@@ -45,6 +55,9 @@ public class CardatabaseApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// 소유자 객체를 추가
+		// `run` 메서드는 스프링 부트가 시작될 때 한번 실행되는 메서드 / run = 실행하기 위한 메서드
+		// `String ... args`로 커맨드 라인 인자를 받을 수 있으며, / String ... = 가변 인자
+		// throws Exception으로 예외가 발생하면 호출자에게 넘길 수 있도록 정의된 것
 		Owner owner1 = new Owner("일", "김");
 		Owner owner2 = new Owner("이", "김");
 		// 다수의 객체를 한 번에 저장하는 메서드를 처음 사용해보겠습니다.
